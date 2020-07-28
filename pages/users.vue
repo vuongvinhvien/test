@@ -3,25 +3,12 @@
     <div>
       <Logo />
       <h1 class="title">
-        user
+        {{ user.name }}
       </h1>
       <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          user
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          user
-        </a>
+        <n-link class="button--grey" to="/">home</n-link>
+        <n-link class="button--grey" to="/api/users">new</n-link>
+        <button class="button--grey" @click="getUser">get user</button>
       </div>
     </div>
   </div>
@@ -29,8 +16,25 @@
 
 <script lang="ts">
 import Vue from 'vue'
-
-export default Vue.extend({})
+// import { Dictionary } from 'vue-router/types/router'
+export default Vue.extend({
+  data() {
+    return {
+      user: {
+        name: 'vien',
+        age: 30,
+      },
+    }
+  },
+  methods: {
+    getUser() {
+      const getok = this.$axios.get('/api/users')
+      getok.then((res) => {
+        this.user.name = res.data
+      })
+    },
+  },
+})
 </script>
 
 <style>

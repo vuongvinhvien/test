@@ -2,11 +2,13 @@
   <div class="container">
     <div>
       <Logo />
-      <h1 class="title">
-        home
+      <h1 class="api-user">
+        {{ user.name }}
       </h1>
       <div class="links">
-        <n-link class="button--green" to="/users">users</n-link>
+        <n-link class="button--grey" to="/">home</n-link>
+        <n-link class="button--grey" to="/users">users</n-link>
+        <button class="button--grey" @click="getUser">get user</button>
       </div>
     </div>
   </div>
@@ -15,7 +17,24 @@
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend({})
+export default Vue.extend({
+  data() {
+    return {
+      user: {
+        name: 'vien',
+        age: 30,
+      },
+    }
+  },
+  methods: {
+    getUser() {
+      const getok = this.$axios.get('/api/users')
+      getok.then((res) => {
+        this.user.name = res.data
+      })
+    },
+  },
+})
 </script>
 
 <style>
