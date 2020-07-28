@@ -34,14 +34,15 @@ async function start() {
   app.use(nuxt.render)
   if (config.dev) {
     const builder = new Builder(nuxt)
+    consola.info('builder for dev')
     await builder.build()
     consola.info('Developer')
   } else {
-    consola.info('Production')
+    consola.info('is Production')
     await nuxt.ready()
   }
   app.listen(port, () =>
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`vuong vinh vien at http://${host}:${port}`)
   )
 }
 start()
