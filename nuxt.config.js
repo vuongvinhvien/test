@@ -67,5 +67,33 @@ module.exports = {
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
-  build: {},
+  /*
+   **  Customising the Progress Bar
+   ** See https://nuxtjs.org/guides/features/loading#customising-the-progress-bar
+   */
+
+  loading: {
+    color: 'DimGrey',
+    height: '1px',
+    continuous: true,
+  },
+  /*
+   **  check by eslint on save
+   ** See https://nuxtjs.org/guide/development-tools#eslint-and-prettier
+   */
+  build: {
+    extend(config, { isDev, isClient }) {
+      if (isDev && isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/,
+          options: {
+            fix: true,
+          },
+        })
+      }
+    },
+  },
 }

@@ -2,13 +2,13 @@
   <div class="container">
     <div>
       <Logo />
-      <h1 class="api-user">
+      <h1 class="title">
         {{ user.name }}
       </h1>
       <div class="links">
         <n-link class="button--grey" to="/">home</n-link>
-        <n-link class="button--grey" to="/users">users</n-link>
-        <button class="button--grey" @click="getUser">get user</button>
+        <n-link class="button--grey" to="/users">user</n-link>
+        <button class="button--grey" @click="getUser">get users</button>
       </div>
     </div>
   </div>
@@ -16,19 +16,19 @@
 
 <script lang="ts">
 import Vue from 'vue'
-
+// import { Dictionary } from 'vue-router/types/router'
 export default Vue.extend({
   data() {
     return {
       user: {
-        name: 'vien',
+        name: 'api',
         age: 30,
       },
     }
   },
   methods: {
     getUser() {
-      const getok = this.$axios.get('/api/users')
+      const getok = this.$axios.get('/api/get')
       getok.then((res) => {
         this.user.name = res.data
       })

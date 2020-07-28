@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const { Nuxt, Builder } = require('nuxt')
 const app = require('express')()
 const { Router } = require('express')
@@ -7,9 +9,7 @@ const consola = require('consola')
 // We instantiate Nuxt.js with the options
 const config = require('../nuxt.config.js')
 const users = [{ name: 'Alexandre' }, { name: 'Pooya' }, { name: 'Sébastien' }]
-consola.info('server init: vien --------------------------------')
-consola.info('server init: vien --------------------------------')
-consola.info('server init: vien --------------------------------')
+consola.info('server init: --------------------------------')
 
 async function start() {
   const port = process.env.PORT || 3000
@@ -26,8 +26,7 @@ async function start() {
     res.send(`đã lấy được user ${x}`)
   })
   router.get('/get', (req, res) => {
-    consola.log('get2t2tt')
-    console.log('2')
+    consola.log('get hello')
     res.send('hello 2')
   })
   app.use(router)
@@ -41,8 +40,9 @@ async function start() {
     consola.info('is Production')
     await nuxt.ready()
   }
+  consola.info('listening')
   app.listen(port, () =>
-    console.log(`vuong vinh vien at http://${host}:${port}`)
+    consola.log(`vuong vinh vien at http://${host}:${port}`)
   )
 }
 start()
