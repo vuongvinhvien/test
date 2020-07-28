@@ -1,4 +1,5 @@
-export default {
+// eslint-disable-next-line nuxt/no-cjs-in-config
+module.exports = {
   /*
    ** Nuxt rendering mode
    ** See https://nuxtjs.org/api/configuration-mode
@@ -8,7 +9,7 @@ export default {
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
    */
-  target: 'server',
+  target: 'static',
   /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
@@ -44,12 +45,18 @@ export default {
    ** Nuxt.js dev-modules
    */
   buildModules: ['@nuxt/typescript-build'],
+  dev: process.env.NODE_ENV !== 'production',
+  // serverMiddleware: [
+  //   // '~/api/index.js',
+  //   { path: '/api/', handler: '~/api/index.js' },
+  // ],
   /*
    ** Nuxt.js modules
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '~/modules/api',
   ],
   /*
    ** Axios module configuration
