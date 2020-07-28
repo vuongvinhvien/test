@@ -8,7 +8,7 @@
       <div class="links">
         <n-link class="button--grey" to="/">home</n-link>
         <n-link class="button--grey" to="/api/users">new</n-link>
-        <button class="button--grey" @click="getUser">get user</button>
+        <button class="button--grey" @click="getUser">get users</button>
       </div>
     </div>
   </div>
