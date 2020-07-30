@@ -8,29 +8,85 @@
       <div class="links">
         <n-link class="button--grey" to="/">home</n-link>
         <n-link class="button--grey" to="/api/users">new</n-link>
-        <button class="button--grey" @click="getUser">get users</button>
+        <button class="button--grey" @click="getUser()">get users</button>
+        <button class="button--grey" @click="$fetch">fetch</button>
+
+        <div class="tb">
+          <table class="table">
+            <thead></thead>
+            <tbody>
+              <tr v-for="(age, index) in ages" :key="index">
+                <td><input v-model="age.name" /></td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="table">
+            <thead></thead>
+            <tbody>
+              <tr v-for="(age, index) in age2s" :key="index">
+                <td><input v-model="age.name" />2</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div></div>
       </div>
     </div>
   </div>
 </template>
-
+<style lang="scss">
+.tb {
+  display: flex;
+  width: 100%;
+  min-width: 100%;
+  flex-direction: row;
+  .table {
+    max-width: 50%;
+  }
+}
+</style>
 <script lang="ts">
 import Vue from 'vue'
 // import { Dictionary } from 'vue-router/types/router'
 export default Vue.extend({
+  async fetch() {
+    console.log('fetching')
+    this.ages = await fetch('http://localhost:50184/api/users').then((res) =>
+      res.json()
+    )
+    console.log(this.ages)
+  },
+  async asyncData({ $axios }) {
+    console.log('asyncData')
+    const { data } = await $axios.get(`/api/users`)
+    console.log(data)
+    return { age2s: data }
+  },
   data() {
     return {
       user: {
         name: 'vien',
         age: 30,
       },
+      ages: {},
+      age2s: {},
     }
   },
   methods: {
     getUser() {
-      const getok = this.$axios.get('/api/users')
-      getok.then((res) => {
-        this.user.name = res.data
+      this.user.name = 'clicked'
+      // console.log(process.env)
+      // console.log(process.env.NODE_ENV)
+      // console.log(process.env.URL)
+      // console.log(process.env.baseUrl)
+      // console.log(`base url now context : `)
+      // console.log([])
+      const variavle = this.$axios.get('/api/users', {})
+      // const variavle = this.$axios.get('/api/users', {
+      //   baseURL: process.env.baseUrl,
+      // })
+      variavle.then((res) => {
+        this.ages = res.data
       })
     },
   },

@@ -16,6 +16,8 @@ async function start() {
   const nuxt = new Nuxt(config)
   const { host } = nuxt.options.server
   consola.info([host])
+
+  
   consola.info([port])
   // consola.info([config])
   // Build only in dev mode
@@ -46,4 +48,5 @@ async function start() {
   )
 }
 start()
-module.exports = { path: '/api', handler: app }
+
+// module.exports = { path: '/api', handler: app }

@@ -1,8 +1,9 @@
 <template>
   <div>
-    <transition name="fade" mode="in-out">
+    <!-- <transition name="fade" mode="in-out">
       <Nuxt />
-    </transition>
+    </transition> -->
+    <Nuxt />
   </div>
 </template>
 <script lang="ts">

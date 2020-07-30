@@ -10,11 +10,20 @@ module.exports = {
    ** See https://nuxtjs.org/api/configuration-target
    */
   target: 'server',
-  server: {
-    // port: 3002, // default: 3000
-    // host: '0.0.0.0', // default: localhost
-    // host: '113.23.17.119',
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+    URL: process.env.URL,
   },
+  server: {
+    // host: '113.23.17.119',
+    port: 50184, // default: 3000
+    // host: '0.0.0.0', // default: localhost
+  },
+  /*
+   ** watch file
+   ** See https://nuxtjs.org/api/configuration-watch/
+   */
+  watch: ['~/api/*.js'],
   /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
@@ -36,6 +45,14 @@ module.exports = {
    ** Global CSS
    */
   css: ['ant-design-vue/dist/antd.css'],
+  pageTransition: {
+    name: 'page',
+    mode: 'out-in',
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    beforeEnter(el) {
+      console.log('Before enter...')
+    },
+  },
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
@@ -51,27 +68,26 @@ module.exports = {
    */
   buildModules: ['@nuxt/typescript-build'],
   dev: process.env.NODE_ENV !== 'production',
-  // serverMiddleware: [
-  //   // '~/api/index.js',
-  //   { path: '/api/', handler: '~/api/index.js' },
-  // ],
+  serverMiddleware: [
+    // '~/api/index.js',
+    { path: '/api/', handler: '~/api/index.js' },
+  ],
   /*
    ** Nuxt.js modules
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '~/modules/api',
+    // '~/modules/api',
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
-  /*
-   ** Build configuration
-   ** See https://nuxtjs.org/api/configuration-build/
-   */
+  axios: {
+    baseURL: process.env.BASE_URL || 'http://localhost:3000', // Used as fallback if no runtime config is provided
+  },
+
   /*
    **  Customising the Progress Bar
    ** See https://nuxtjs.org/guides/features/loading#customising-the-progress-bar
@@ -82,6 +98,11 @@ module.exports = {
     height: '1px',
     continuous: true,
   },
+
+  /*
+   ** Build configuration
+   ** See https://nuxtjs.org/api/configuration-build/
+   */
   /*
    **  check by eslint on save
    ** See https://nuxtjs.org/guide/development-tools#eslint-and-prettier
@@ -101,4 +122,12 @@ module.exports = {
       }
     },
   },
+  extends: ['@nuxtjs/eslint-config-typescript'],
+  // typescript: {
+  //   typeCheck: {
+  //     eslint: {
+  //       files: './**/*.{ts,js,vue}',
+  //     },
+  //   },
+  // },
 }
